@@ -25,7 +25,7 @@ having count(*) < 30
 order by count(*) desc
 
 
-4- List then Name of blood bank and create a column as Is_Government where if the blood bank is government then Yes or else no.
+4- List the Name of blood bank and create a column as Is_Government where if the blood bank is government then Yes or else no.
 
 SELECT Blood_Bank_Name,
        CASE WHEN Category = 'Government' Then 'Yes' Else 'NO' 
