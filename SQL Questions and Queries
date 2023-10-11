@@ -1,0 +1,36 @@
+1 - Find the state with maximum number of blood banks ?
+
+SELECT State, COUNT(*) 
+FROM bood_bank.data 
+GROUP BY State
+HAVING COUNT(*) = (
+    SELECT MAX(StateCount)
+    FROM (SELECT COUNT(*) AS StateCount FROM bood_bank.data GROUP BY State) AS Subquery
+);
+
+
+2 - Find the state with least number of blood banks ?
+
+SELECT State, COUNT(*) as number_of_blood_bank
+FROM bood_bank.data 
+GROUP BY State
+HAVING COUNT(*) = 1;
+
+
+3 - List the State and respective count of blood bank, wherin the number of blood bank is less than 30.And order that in descending order by count of bloodbank.
+
+SELECT State,count(*) as Less_than_30_blood_bank FROM bood_bank.data
+group by State
+having count(*) < 30
+order by count(*) desc
+
+
+4- List then Name of blood bank and create a column as Is_Government where if the blood bank is government then Yes or else no.
+
+SELECT Blood_Bank_Name,
+       CASE WHEN Category = 'Government' Then 'Yes' Else 'NO' 
+       END As Is_Government
+FROM bood_bank.data;
+
+
+
