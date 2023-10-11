@@ -33,4 +33,24 @@ SELECT Blood_Bank_Name,
 FROM bood_bank.data;
 
 
+5- Find the Names of blood bank which offers full service(blood bank with blood_component_availiblity as YES and Aphresis as YES and service time as 24x7 or 24 hrs or 24X7).
+
+With CTE as (
+ SELECT Blood_Bank_Name,
+       CASE WHEN Blood_Component_Available = 'YES' and Apheresis = 'YES' and (Service_Time = '24X7' or Service_Time = '24x7' or Service_Time = '24 hrs') 
+            THEN 'Full_Service' 
+            ELSE 'Partial_service'
+       END as Full_or_partial
+ FROM bood_bank.data)
+Select Blood_Bank_Name,Full_or_partial
+from CTE
+WHERE Full_or_partial = 'Full_Service';
+
+
+6- Query the number of blood bank in each states where the name of the state starts with A?
+
+SELECT State,Count(*) FROM bood_bank.data
+WHERE State like 'A%'
+group by State;
+
 
