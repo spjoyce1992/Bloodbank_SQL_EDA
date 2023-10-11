@@ -54,7 +54,8 @@ WHERE State like 'A%'
 group by State;
 
 
-7- Query the number of bloodbanks in each district, with full service capablity(Service_Time = '24X7' or Service_Time = '24x7' or Service_Time = '24 hrs').
+7- Query the number of bloodbanks in each district, with full service capablity(blood bank with blood_component_availiblity as YES and Aphresis as YES and service time as 24x7 or 24 hrs or 24X7).
+.
 
 With CTE as ( 
  SELECT Blood_Bank_Name,District,
@@ -68,3 +69,15 @@ from CTE
 where full_or_partial = 'Full_Service'
 group by District
 order by Count(Full_or_partial) desc;
+
+
+8- List the Name of states and count of blood bank,which has Blood_component_available as yes and service_time is either 24x7 or 24X7,also order by descending order by their respective count,and also rank them.
+
+With CTE as (
+ SELECT State,count(*) As Blood_bank_With_both_condition FROM bood_bank.data
+ where Blood_Component_Available = 'YES' and (Service_Time = '24x7' or Service_Time = '24X7')
+ group by State
+ order by count(*) desc)
+SELECT State,Blood_bank_With_both_condition,dense_rank() over(order by Blood_bank_With_both_condition desc) as Rank_of_count_of_number_of_blood_bank
+from CTE;
+
