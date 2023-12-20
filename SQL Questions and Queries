@@ -81,3 +81,15 @@ With CTE as (
 SELECT State,Blood_bank_With_both_condition,dense_rank() over(order by Blood_bank_With_both_condition desc) as Rank_of_count_of_number_of_blood_bank
 from CTE;
 
+9- find the name and count of email domain with maximum number of blood bank
+
+With cte as 
+(SELECT *,
+       SUBSTRING(Email, locate('@', Email) + 1, LENGTH(Email)) as Email_company
+FROM bood_bank.data)
+
+select Email_company,count(*) as  Count_of_email_company
+from cte
+group by Email_company
+order by count(*) desc limit 1 
+
